@@ -1,4 +1,4 @@
-import { User, Prisma } from '@prisma/client'
+import { User, Prisma, Role } from '@prisma/client'
 import { UsersRepository } from '../users-repository'
 
 export class InMemoryUsersRepository implements UsersRepository {
@@ -30,6 +30,7 @@ export class InMemoryUsersRepository implements UsersRepository {
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,
+      role: Role.MEMBER,
       created_at: new Date(),
     }
 

@@ -4,6 +4,8 @@ import { ZodError } from 'zod'
 import { env } from '@/env'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
+import express from 'express';
+import usuarioRoutes from './routes/usuarioRoutes';
 
 export const app = fastify()
 
@@ -36,3 +38,9 @@ app.setErrorHandler((error, _, reply) => {
 
   return reply.status(500).send({ message: 'Internal server error.' })
 })
+
+const app = express();
+app.use(express.json());
+app.use('/api', usuarioRoutes);
+
+export default app;

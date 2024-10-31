@@ -15,14 +15,94 @@ enum Role {
   MEMBER
 }
 
-model User {
-  id            String   @id @default(uuid())
-  name          String
-  email         String   @unique
-  password_hash String
-  role          Role     @default(MEMBER)
-  created_at    DateTime @default(now())
-
-  @@map("users")
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
 }
 
+model User {
+  id            String     @id @default(uuid())
+  name          String
+  email         String     @unique
+  password_hash String
+  date_of_birth DateTime
+  role          Role     @default(MEMBER)
+  height        String
+  weight        String
+  objective     String
+  workouts      Workout[]
+  progress      Progress[]
+
+  @@map("Usuario")
+}
+
+model MuscleGroup {
+  id_group  String                   @id @default(uuid())
+  name      String
+  exercises ExerciseMuscleGroup[]
+
+  @@map("GrupoMuscular")
+}
+
+model Exercise {
+  id_exercise        String                   @id @default(uuid())
+  name               String
+  description        String
+  difficulty         Difficulty
+  requires_equipment Boolean               @default(false)
+  muscle_groups      ExerciseMuscleGroup[]
+  workout_exercises  WorkoutExercise[]
+  progress           Progress[]
+
+  @@map("Exercicio")
+}
+
+model ExerciseMuscleGroup {
+  id_exercise String
+  id_group    String
+  Exercise    Exercise    @relation(fields: [id_exercise], references: [id_exercise])
+  MuscleGroup MuscleGroup @relation(fields: [id_group], references: [id_group])
+
+  @@id([id_exercise, id_group])
+  @@map("ExercicioGrupoMuscular")
+}
+
+model Workout {
+  id_workout String               @id @default(uuid())
+  id         String
+  name       String
+  created_at DateTime          @default(now())
+  objective  String
+  User       User              @relation(fields: [id], references: [id])
+  exercises  WorkoutExercise[]
+
+  @@map("Treino")
+}
+
+model WorkoutExercise {
+  id_workout  String
+  id_exercise String
+  series      Int
+  repetitions Int
+  rest        Int
+  Workout     Workout  @relation(fields: [id_workout], references: [id_workout])
+  Exercise    Exercise @relation(fields: [id_exercise], references: [id_exercise])
+
+  @@id([id_workout, id_exercise])
+  @@map("TreinoExercicio")
+}
+
+model Progress {
+  id_progress           String      @id @default(uuid())
+  id                    String
+  id_exercise           String
+  date                  DateTime
+  completed_series      Int
+  completed_repetitions Int
+  used_weight           Float
+  User                  User     @relation(fields: [id], references: [id])
+  Exercise              Exercise @relation(fields: [id_exercise], references: [id_exercise])
+
+  @@map("Progresso")
+}

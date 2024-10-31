@@ -8,9 +8,13 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(6),
+    height: z.string(),
+    weight: z.string(),
+    date_of_birth: z.string().refine(value => !isNaN(Date.parse(value)), { message: 'Invalid date format' }),
+    objective: z.string()
   })
 
-  const { name, email, password } = registerBodySchema.parse(request.body)
+  const { name, email, password, height, weight, date_of_birth, objective} = registerBodySchema.parse(request.body)
 
   try {
       const registerUseCase = makeRegisterUseCase()
@@ -19,7 +23,10 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
         name,
         email,
         password,
-      
+        height,
+        weight,
+        date_of_birth: new Date(date_of_birth),
+        objective
       })
   } catch (err ){
     if (err instanceof UserAlreadyExistsError){

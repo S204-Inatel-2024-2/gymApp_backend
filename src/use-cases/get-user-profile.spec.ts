@@ -18,6 +18,10 @@ describe('Get User Profile Use Case', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password_hash: await hash('123456', 6),
+      height: '1.73',
+      weight: '60',
+      date_of_birth: new Date(2002, 9, 10),
+      objective: 'hipertrofia'
     })
 
     const { user } = await sut.execute({

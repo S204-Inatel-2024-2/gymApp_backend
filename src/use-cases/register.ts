@@ -7,6 +7,10 @@ interface RegisterUseCaseRequest {
   name: string
   email: string
   password: string
+  date_of_birth: Date
+  height: string,
+  weight: string,
+  objective: string,
 }
 
 interface RegisterUseCaseResponse{
@@ -15,7 +19,7 @@ interface RegisterUseCaseResponse{
 
 export class RegisterUseCase{
   constructor( private usersRepository: UsersRepository){}
-  async execute({name, email, password,}: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+  async execute({name, email, password, date_of_birth, height, weight, objective}: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
     const userWithSameEmail = await this.usersRepository.findByEmail(email)
@@ -28,6 +32,10 @@ export class RegisterUseCase{
       name,
       email,
       password_hash,
+      date_of_birth,
+      height,
+      weight,
+      objective,
     })
 
     return {

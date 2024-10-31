@@ -16,6 +16,10 @@ describe('Refresh Token (e2e)', () => {
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
+      height: '1.73',
+      weight: '60',
+      date_of_birth: new Date(2002, 9, 10),
+      objective: 'hipertrofia'
     })
 
     const authResponse = await request(app.server).post('/sessions').send({

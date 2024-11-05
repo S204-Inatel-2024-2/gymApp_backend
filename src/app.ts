@@ -4,6 +4,7 @@ import { ZodError } from 'zod'
 import { env } from '@/env'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
+import { muscleGroupRoutes } from './http/controllers/muscleGroup/routes'
 
 export const app = fastify()
 
@@ -20,6 +21,7 @@ app.register(fastifyJwt, {
 app.register(fastifyCookie)
 
 app.register(usersRoutes)
+app.register(muscleGroupRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

@@ -7,7 +7,7 @@ export async function createAndAuthenticateUser(app: FastifyInstance, isAdmin = 
   const use = await prisma.user.create({
     data:{
       name: 'John Doe',
-      email: 'johndoe3@example.com',
+      email: 'johndoe13@example.com',
       password_hash: await hash('123456', 6),
       height: '1.73',
       weight: '60',
@@ -18,7 +18,7 @@ export async function createAndAuthenticateUser(app: FastifyInstance, isAdmin = 
   })
 
   const authResponse = await request(app.server).post('/sessions').send({
-    email: 'johndoe3@example.com',
+    email: 'johndoe13@example.com',
     password: '123456',
   })
 

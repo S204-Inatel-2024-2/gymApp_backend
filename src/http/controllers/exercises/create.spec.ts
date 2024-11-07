@@ -2,8 +2,9 @@ import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-use-case'
+import { Difficulty } from '@prisma/client'
 
-describe.skip('Create Muscle Group (e2e)', () => {
+describe('Create exercise (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -12,14 +13,17 @@ describe.skip('Create Muscle Group (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to create a muscle group', async () => {
+  it('should be able to create a exercise', async () => {
     const { token } = await createAndAuthenticateUser(app, true)
 
     const response = await request(app.server)
-      .post('/muscleGroup')
+      .post('/exercises')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        name: 'Superiores',
+        name: 'Supino',
+        description: 'Supino reto',
+        difficulty: Difficulty.BEGINNER,
+        requires_equipment: true, 
       })
 
       console.log(response.statusCode, response.body);

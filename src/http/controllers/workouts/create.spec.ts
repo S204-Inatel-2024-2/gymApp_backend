@@ -3,7 +3,7 @@ import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-use-case'
 
-describe.skip('Create Muscle Group (e2e)', () => {
+describe.skip('Create Workout (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -12,18 +12,16 @@ describe.skip('Create Muscle Group (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to create a muscle group', async () => {
-    const { token } = await createAndAuthenticateUser(app, true)
+  it('should be able to create a workout associated with a user', async () => {
+    const { token, use} = await createAndAuthenticateUser(app, true)
 
     const response = await request(app.server)
-      .post('/muscleGroup')
+      .post(`/workout/${use.id}/workouts`)
       .set('Authorization', `Bearer ${token}`)
       .send({
-        name: 'Superiores',
+        name: 'Segunda',
+        objective: 'Ganho de massa muscular'
       })
-
-      console.log(response.statusCode, response.body);
-
 
     expect(response.statusCode).toEqual(201)
   })

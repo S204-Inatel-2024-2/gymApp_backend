@@ -17,4 +17,9 @@ export class InMemoryMuscleGroupRepository implements MuscleGroupRepository {
 
     return muscleGroup
   }
+
+  async searchMany(query: string) {
+    return this.items
+      .filter((item) => item.name.includes(query))
+  }
 }

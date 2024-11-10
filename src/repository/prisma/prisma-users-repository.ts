@@ -30,4 +30,16 @@ export class PrismaUsersRepository implements UsersRepository {
 
     return user
   }
+
+  async searchMany(query: string) {
+    const userRepository = await prisma.user.findMany({
+      where: {
+        id: {
+          contains: query,
+        },
+      },
+    })
+
+    return userRepository
+  }
 }

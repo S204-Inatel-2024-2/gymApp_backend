@@ -10,11 +10,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
   const { name } =
     createGymBodySchema.parse(request.body)
 
-  const createGymUseCase = makeCreateMuscleGroupUseCase()
+  const createMuscleGroupUseCase = makeCreateMuscleGroupUseCase()
 
-  await createGymUseCase.execute({
+  const muscleGroup = await createMuscleGroupUseCase.execute({
     name
   })
 
-  return reply.status(201).send()
+  return reply.status(201).send(muscleGroup)
 }

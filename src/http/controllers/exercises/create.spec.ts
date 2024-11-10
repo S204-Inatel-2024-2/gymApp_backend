@@ -26,9 +26,6 @@ describe('Create exercise (e2e)', () => {
         requires_equipment: true, 
       })
 
-      console.log(response.statusCode, response.body);
-
-
     expect(response.statusCode).toEqual(201)
   })
 })

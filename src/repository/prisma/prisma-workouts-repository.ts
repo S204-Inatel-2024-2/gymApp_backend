@@ -11,4 +11,16 @@ export class PrismaWorkoutRepository implements WorkoutsRepository {
 
     return exercise
   }
+
+  async searchMany(query: string) {
+    const workoutsRepository = await prisma.workout.findMany({
+      where: {
+        name: {
+          contains: query,
+        },
+      },
+    })
+
+    return workoutsRepository
+  }
 }

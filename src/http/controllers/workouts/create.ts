@@ -14,11 +14,11 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
   const createWorkoutUseCase = makeCreateWorkoutUseCase()
 
-  await createWorkoutUseCase.execute({
+  const workout = await createWorkoutUseCase.execute({
     name,
     objective,
     id: request.user.sub
   })
 
-  return reply.status(201).send()
+  return reply.status(201).send(workout)
 }

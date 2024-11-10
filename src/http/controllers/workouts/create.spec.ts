@@ -3,7 +3,7 @@ import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-use-case'
 
-describe.skip('Create Workout (e2e)', () => {
+describe('Create Workout (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })

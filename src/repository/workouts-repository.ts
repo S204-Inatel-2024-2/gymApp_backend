@@ -7,4 +7,5 @@ export interface FindManyNearbyParams {
 
 export interface WorkoutsRepository {
   create(data: Prisma.WorkoutUncheckedCreateInput): Promise<Workout>
+  searchMany(query: string): Promise<Workout[]>
 }

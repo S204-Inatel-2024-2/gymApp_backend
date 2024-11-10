@@ -19,4 +19,9 @@ export class InMemoryWorkoutsRepository implements WorkoutsRepository {
 
     return workout
   }
+
+  async searchMany(query: string) {
+    return this.items
+      .filter((item) => item.name.includes(query))
+  }
 }

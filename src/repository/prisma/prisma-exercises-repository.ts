@@ -11,4 +11,26 @@ export class PrismaExerciseRepository implements ExercisesRepository {
 
     return exercise
   }
+
+  async findById(id_exercise: string) {
+    const exercise = await prisma.exercise.findUnique({
+      where: {
+        id_exercise,
+      },
+    })
+
+    return exercise
+  }
+
+  async searchMany(query: string) {
+    const exerciseRepository = await prisma.exercise.findMany({
+      where: {
+        name: {
+          contains: query,
+        },
+      },
+    })
+
+    return exerciseRepository
+  }
 }

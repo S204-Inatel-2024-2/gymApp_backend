@@ -19,4 +19,20 @@ export class InMemoryExerciseRepository implements ExercisesRepository {
 
     return exercise
   }
+
+  async findById(id_exercise: string) {
+    const exercise = this.items.find((item) => item.id_exercise === id_exercise)
+
+    if (!exercise) {
+      return null
+    }
+
+    return exercise
+  }
+
+  async searchMany(query: string) {
+    return this.items
+      .filter((item) => item.name.includes(query))
+  }
+
 }

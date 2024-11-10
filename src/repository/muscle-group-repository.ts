@@ -6,4 +6,5 @@ export interface FindManyNearbyParams {
 
 export interface MuscleGroupRepository {
   create(data: Prisma.MuscleGroupCreateInput): Promise<MuscleGroup>
+  searchMany(query: string): Promise<MuscleGroup[]>
 }

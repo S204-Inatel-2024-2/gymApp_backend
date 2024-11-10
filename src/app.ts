@@ -7,6 +7,9 @@ import fastifyCookie from '@fastify/cookie'
 import { muscleGroupRoutes } from './http/controllers/muscleGroup/routes'
 import { workoutsRoutes } from './http/controllers/workouts/routes'
 import { exercisesRoutes } from './http/controllers/exercises/routes'
+import { exerciseMuscleGroupRoutes } from './http/controllers/exerciseMuscleGroup/routes'
+import { workoutExerciseRoutes } from './http/controllers/workoutExercise/routes'
+import { progressRoutes } from './http/controllers/progress/routes'
 
 export const app = fastify()
 
@@ -26,6 +29,9 @@ app.register(usersRoutes)
 app.register(muscleGroupRoutes)
 app.register(workoutsRoutes)
 app.register(exercisesRoutes)
+app.register(progressRoutes)
+app.register(exerciseMuscleGroupRoutes)
+app.register(workoutExerciseRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

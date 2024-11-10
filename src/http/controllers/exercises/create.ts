@@ -8,20 +8,21 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     description: z.string(),
     difficulty: z.enum(['BEGINNER','INTERMEDIATE','ADVANCED']),
     requires_equipment: z.boolean()
-
   })
 
-  const { name, description,requires_equipment, difficulty } =
+  const { name, description, requires_equipment, difficulty } =
     createExerciseBodySchema.parse(request.body)
 
   const createExerciseUseCase = makeCreateExerciseUseCase()
 
-  await createExerciseUseCase.execute({
+  // Executa o caso de uso
+  const exercise = await createExerciseUseCase.execute({
     name,
     description,
     requires_equipment,
     difficulty
   })
 
-  return reply.status(201).send()
+  // Retorna o exercício criado com status 201
+  return reply.status(201).send(exercise)
 }

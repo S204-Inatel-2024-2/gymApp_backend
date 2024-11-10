@@ -43,4 +43,9 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     return user
   }
+
+  async searchMany(query: string) {
+    return this.items
+      .filter((item) => item.id.includes(query))
+  }
 }

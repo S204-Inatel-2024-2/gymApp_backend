@@ -3,7 +3,7 @@ import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-use-case'
 
-describe.skip('Create Muscle Group (e2e)', () => {
+describe('Create Muscle Group (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -21,9 +21,8 @@ describe.skip('Create Muscle Group (e2e)', () => {
       .send({
         name: 'Superiores',
       })
-
+    
       console.log(response.statusCode, response.body);
-
 
     expect(response.statusCode).toEqual(201)
   })
